@@ -31,9 +31,13 @@ Route::get('/tasks/completed', function () {
     ]);
 })->name('tasks.completed');
 
+Route::view('/tasks/create', 'create');
+
 Route::get('/tasks/{id}', function ($id) {
    return view('show', ['task' => \App\Models\Task::findOrFail($id)]);
 })->name('tasks.show');
+
+
 //Future Ref
 //Route::get('/hello', function(){
 //    return 'Hello';
