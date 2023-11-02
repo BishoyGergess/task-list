@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,11 +32,16 @@ Route::get('/tasks/completed', function () {
     ]);
 })->name('tasks.completed');
 
-Route::view('/tasks/create', 'create');
+Route::view('/tasks/create', 'create')
+    ->name('tasks.name');
 
 Route::get('/tasks/{id}', function ($id) {
    return view('show', ['task' => \App\Models\Task::findOrFail($id)]);
 })->name('tasks.show');
+
+Route::post('/tasks', function (Request $request) {
+    dd($request->all());
+})->name('tasks.store');
 
 
 //Future Ref
