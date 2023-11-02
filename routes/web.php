@@ -45,6 +45,7 @@ Route::post('/tasks', function (Request $request) {
         'description'=>'required',
         'long_description'=>'required',
     ]);
+    
     $task = new Task;
     $task->title = $data['title'];
     $task->description = $data['description'];
@@ -52,27 +53,15 @@ Route::post('/tasks', function (Request $request) {
 
     $task->save();
 
-    return redirect()->route('tasks.show',['id'=>$task->id]);
+    return redirect()->route('tasks.show',['id'=>$task->id])
+    ->with('success','Task was created sucessfully!');
 })->name('tasks.store');
 
 
 //Future Ref
-//Route::get('/hello', function(){
-//    return 'Hello';
-//})->name('hello');
-
-//Route::redirect('/hallo', '/hello', 301);
-//Route::get('/hallo', function(){
- //   return redirect()->route('hello');
+//Route::fallback(function(){
+//    return 'Still Got Somewhere!';
 //});
-
-//Route::get('users/{id}', function ($id) {
-//    return 'user Id is  '.$id ;
-//});
-
-Route::fallback(function(){
-    return 'Still Got Somewhere!';
-});
 
 //GET
 //POST
