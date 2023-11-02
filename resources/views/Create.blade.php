@@ -3,6 +3,7 @@
 @section('title','Add Task')
 
 @section('content')
+
 <form method="POST" action="{{ Route('tasks.store') }}"> 
     @csrf
     <div>
