@@ -49,37 +49,21 @@ Route::get('/tasks/{task}', function (Task $task) {
  })->name('tasks.show');
 
 Route::post('/tasks', function (TaskRequest $request) {
-    /*$data = $request->validated();
-    $task = new Task;
-    $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-
-    $task->save();*/
     $task = Task::create($request->validated());
     return redirect()->route('tasks.show',['task'=>$task->id])
     ->with('success','Task was created sucessfully!');
 })->name('tasks.store');
 
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
-    //$data = $request->validated();
-   /* $task->title = $data['title'];
-    $task->description = $data['description'];
-    $task->long_description = $data['long_description'];
-    $task->save();*/
     $task->update($request->validated());
 
     return redirect()->route('tasks.show',['task'=>$task->id])
     ->with('success','Task was updated sucessfully!');
 })->name('tasks.update');
 
+Route::delete('/tasks/{task}', function (Task $task) {
+    $task->delete();
 
-//Future Ref
-//Route::fallback(function(){
-//    return 'Still Got Somewhere!';
-//});
-
-//GET
-//POST
-//PUT
-//DELETE
+    return redirect()->route('tasks.index')
+    ->with('success','Task was Deleted sucessfully!');
+})->name('tasks.destroy');
