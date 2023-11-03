@@ -2,7 +2,6 @@
 <html>
     <head>
         <title> Laravel 10 Task list APP</title>
-        <link rel="stylesheet" type="text/css" href="{{ url('css\app.css') }}" />
     </head>
     <body>
         
