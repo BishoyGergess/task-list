@@ -23,7 +23,7 @@ Route::get('/', function (){
 
 Route::get('/tasks', function () {
     return view('index', [
-        'tasks'=> Task::all()
+        'tasks'=> Task::latest()->paginate(10)
     ]);
 })->name('tasks.index');
 
@@ -34,7 +34,7 @@ Route::get('/tasks/completed', function () {
 })->name('tasks.completed');
 
 Route::view('/tasks/create', 'create')
-    ->name('tasks.name');
+    ->name('tasks.create');
 
 Route::get('/tasks/{task}/edit', function (Task $task) {
    return view('edit', [
@@ -53,7 +53,7 @@ Route::post('/tasks', function (TaskRequest $request) {
     return redirect()->route('tasks.show',['task'=>$task->id])
     ->with('success','Task was created sucessfully!');
 })->name('tasks.store');
-
+ 
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
     $task->update($request->validated());
 
@@ -67,3 +67,8 @@ Route::delete('/tasks/{task}', function (Task $task) {
     return redirect()->route('tasks.index')
     ->with('success','Task was Deleted sucessfully!');
 })->name('tasks.destroy');
+
+Route::put('/tasks/{task}/toggle-complete', function (Task $task) {
+    $task->toggleComplete();
+    return redirect()->back()->with('success','Task updated sucessfully');
+})->name('tasks.toggle');
